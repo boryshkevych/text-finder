@@ -29,11 +29,25 @@ public class Aggregator {
 
     private String toReportLine(Set<OffsetInfo> offsetInfos) {
         return offsetInfos.stream()
-                .map(offsetInfo -> "[lineOffset=" + offsetInfo.lineOffset() + ", charOffset=" + offsetInfo.charOffset() + "]")
+                .map(offsetInfo -> "[lineOffset=" + offsetInfo.getLineOffset() + ", charOffset=" + offsetInfo.getCharOffset() + "]")
                 .collect(Collectors.joining(", ", "[", "]"));
     }
 
-    private record OffsetInfo(Integer lineOffset, Integer charOffset) {
-    }
+    private static class OffsetInfo {
+        private final Integer lineOffset;
+        private final Integer charOffset;
 
+        public OffsetInfo(Integer lineOffset, Integer charOffset) {
+            this.lineOffset = lineOffset;
+            this.charOffset = charOffset;
+        }
+
+        public Integer getLineOffset() {
+            return lineOffset;
+        }
+
+        public Integer getCharOffset() {
+            return charOffset;
+        }
+    }
 }

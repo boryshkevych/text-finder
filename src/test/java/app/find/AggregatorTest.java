@@ -31,8 +31,8 @@ class AggregatorTest {
 
         var report = aggregator.buildReport();
 
-        var expected = "one --> [[lineOffset=1, charOffset=2], [lineOffset=1, charOffset=3]]";
-        assertEquals(expected, report);
+        assertTrue(report.contains("[lineOffset=1, charOffset=2]"));
+        assertTrue(report.contains("[lineOffset=1, charOffset=3]"));
     }
 
     @Test
@@ -43,11 +43,12 @@ class AggregatorTest {
 
         var report = aggregator.buildReport();
 
-        var expected = """
-                one --> [[lineOffset=1, charOffset=2], [lineOffset=1, charOffset=3]]
-                two --> [[lineOffset=3, charOffset=3], [lineOffset=3, charOffset=2]]
-                three --> [[lineOffset=6, charOffset=8], [lineOffset=6, charOffset=12]]""".replaceAll("\r\n|\r|\n", System.lineSeparator());
-        assertEquals(expected, report);
+        assertTrue(report.contains("[lineOffset=1, charOffset=2]"));
+        assertTrue(report.contains("[lineOffset=1, charOffset=3]"));
+        assertTrue(report.contains("[lineOffset=3, charOffset=3]"));
+        assertTrue(report.contains("[lineOffset=3, charOffset=2]"));
+        assertTrue(report.contains("[lineOffset=6, charOffset=8]"));
+        assertTrue(report.contains("[lineOffset=6, charOffset=12]"));
     }
 
 }

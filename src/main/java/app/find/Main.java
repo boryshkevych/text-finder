@@ -46,8 +46,8 @@ public class Main {
 
     private CompletableFuture<Void> toCompletableFuture(TextLine line) {
         return CompletableFuture.runAsync(() -> {
-            var matches = matcher.findAllMatches(line.lineText());
-            matches.forEach((string, positions) -> aggregator.appendResult(string, line.lineNumber(), positions));
+            var matches = matcher.findAllMatches(line.getLineText());
+            matches.forEach((string, positions) -> aggregator.appendResult(string, line.getLineNumber(), positions));
         });
     }
 
@@ -64,7 +64,22 @@ public class Main {
         return lines.isEmpty() ? null : lines;
     }
 
-    private record TextLine(int lineNumber, String lineText) {
+    private static final class TextLine {
+        private final int lineNumber;
+        private final String lineText;
+
+        private TextLine(int lineNumber, String lineText) {
+            this.lineNumber = lineNumber;
+            this.lineText = lineText;
+        }
+
+        public int getLineNumber() {
+            return lineNumber;
+        }
+
+        public String getLineText() {
+            return lineText;
+        }
     }
 
 }
